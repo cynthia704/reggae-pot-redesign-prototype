@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jamaican Menu: Oxtail, Curry Goat &amp; Jerk Chicken | Reggae Pot</title>
+<meta name="description" content="The full Reggae Pot menu — oxtail, curry goat, jerk chicken, roti, patties and more, with real prices. Order online for pickup from Centennial or Denver, CO.">
+
+<!--
+  REDESIGN PROTOTYPE — Reggae Pot Jamaican Grill menu page
+  Built Sep 15, 2026, after reviewing the sibling client's (Nakhon Luang) three menu-page
+  design directions on their dev site. This follows their "Field Guide" variant: one real
+  content page, every dish with a real price, a sticky jump-to-category nav — because the
+  Sep 3 audit found the live /menu/ page is a bare ezoo embed with zero content and no H1,
+  and ordering itself already happens on ezoo — this page doesn't need to rebuild that.
+
+  ALL prices and item names below were pulled live from Reggae Pot's own ordering system
+  (ezoo.app/api/reggaepotcentennial/menu) on Sep 15, 2026 — not guessed, not carried over
+  from the Sep 3 audit's manual notes. Items ezoo currently marks unavailable are excluded.
+  See README.md in this folder for the full sourcing and category-cleanup notes.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  /* ---------- Menu-page-only additions ---------- */
+  .menu-hero{
+    background:linear-gradient(160deg, var(--green-deep), var(--green) 140%);
+    color:var(--cream); padding-block:56px 44px;
+  }
+  .menu-hero .eyebrow{color:var(--gold);}
+  .menu-hero h1{color:#fff; font-size:clamp(2rem,4.5vw,3rem);}
+  .menu-hero p.lede{max-width:60ch; color:rgba(250,246,236,0.88); font-size:1.05rem;}
+  .menu-meta{display:flex; flex-wrap:wrap; gap:20px 32px; margin-top:1.4em; font-size:0.92rem;}
+  .menu-meta strong{color:var(--gold); display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;}
+  .menu-hero .hero-ctas{margin-top:1.6em;}
+  .menu-note{
+    margin-top:1.6em; padding:12px 16px; border-radius:10px; background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.16); font-size:0.85rem; max-width:64ch; color:rgba(250,246,236,0.85);
+  }
+
+  .menu-layout{display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start; padding-block:48px;}
+  @media (max-width:860px){ .menu-layout{grid-template-columns:1fr;} }
+
+  .jump-nav{position:sticky; top:86px; display:flex; flex-direction:column; gap:2px;}
+  .jump-nav a{
+    padding:9px 12px; border-radius:8px; text-decoration:none; color:var(--ink); font-size:0.88rem;
+    font-weight:500; opacity:0.72; border-left:2px solid transparent;
+  }
+  .jump-nav a:hover{opacity:1; background:var(--cream-deep);}
+  .jump-nav a.active{opacity:1; border-left-color:var(--green); color:var(--green); font-weight:600;}
+  @media (max-width:860px){
+    .jump-nav{
+      position:sticky; top:66px; z-index:20; flex-direction:row; overflow-x:auto; gap:8px;
+      background:var(--cream); padding-block:10px; margin-inline:-24px; padding-inline:24px;
+      border-bottom:1px solid var(--line); -webkit-overflow-scrolling:touch;
+    }
+    .jump-nav a{white-space:nowrap; border-left:none; border-bottom:2px solid transparent; border-radius:0; padding:6px 4px;}
+    .jump-nav a.active{border-bottom-color:var(--green);}
+  }
+
+  .menu-cat{scroll-margin-top:150px; padding-bottom:40px; border-bottom:1px solid var(--line); margin-bottom:40px;}
+  .menu-cat:last-child{border-bottom:none;}
+  .menu-cat-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:6px;}
+  .menu-cat-head h2{margin-bottom:0;}
+  .menu-cat-count{font-size:0.8rem; color:var(--green); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;}
+  .menu-cat-intro{max-width:64ch; opacity:0.75; margin-bottom:1.2em;}
+  .menu-cat-order{font-size:0.85rem; font-weight:600; color:var(--green); text-decoration:none; white-space:nowrap;}
+  .menu-cat-order:hover{text-decoration:underline;}
+
+  .menu-items{display:grid; grid-template-columns:1fr 1fr; gap:6px 40px;}
+  @media (max-width:680px){ .menu-items{grid-template-columns:1fr;} }
+  .menu-item{
+    display:flex; justify-content:space-between; gap:16px; padding-block:12px;
+    border-bottom:1px dashed var(--line);
+  }
+  .menu-item-name{font-weight:600; font-size:0.98rem;}
+  .menu-item-desc{font-size:0.85rem; opacity:0.7; margin-top:2px; max-width:38ch;}
+  .menu-item-price{font-weight:600; color:var(--green); white-space:nowrap; font-variant-numeric:tabular-nums;}
+
+  .menu-callout{
+    background:var(--cream-deep); border:1px dashed rgba(11,148,68,0.4); border-radius:var(--radius);
+    padding:20px 22px; margin-top:1em;
+  }
+  .menu-callout p{margin:0; font-size:0.92rem;}
+  .menu-callout .flavors{font-weight:600; color:var(--green);}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="/" class="wordmark">
+      <img class="mark" src="../assets/icon.png" alt="" width="186" height="119">
+      <img class="logotype" src="../assets/logo-txt.png" alt="Reggae Pot" width="473" height="66">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/menu/" style="opacity:1; font-weight:700;">Menu</a></li>
+      <li><a href="/#locations">Locations</a></li>
+      <li><a href="https://catering.reggaepotjamaicangrill.com/">Catering</a></li>
+      <li><a href="/#why">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-outline-dark btn-sm" href="/order/centennial/">Order: Centennial</a>
+      <a class="btn btn-ember btn-sm" href="/order/denver/">Order: Denver</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="menu-hero">
+    <div class="wrap">
+      <span class="eyebrow">Menu · Centennial &amp; Denver</span>
+      <h1>Every dish, one real price list</h1>
+      <p class="lede">Oxtail, curry goat and jerk chicken cooked the way Tamara Nisbeth learned in Montego Bay — plus rotis, patties, sides and drinks. Real prices, pulled straight from our own ordering system.</p>
+      <div class="menu-meta">
+        <div><strong>Hours</strong>Mon–Sat 11am–8pm, both locations</div>
+        <div><strong>Centennial</strong>7562 S University Blvd Unit C</div>
+        <div><strong>Denver</strong>2243 S Monaco St Pkwy #104 · Closed Sun</div>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-ember" href="/order/centennial/">Order Online — Centennial</a>
+        <a class="btn btn-outline" href="/order/denver/">Order Online — Denver</a>
+      </div>
+      <p class="menu-note">Prices shown are Centennial's. Denver's menu is close but can vary slightly — order from your own location's link above to see exactly what's available near you.</p>
+    </div>
+  </section>
+
+  <div class="wrap menu-layout">
+    <nav class="jump-nav" aria-label="Jump to category">
+      <a href="#meals">Reggae Pot Meals</a>
+      <a href="#starters">Starters</a>
+      <a href="#salads">Salads</a>
+      <a href="#lunch">Lunch Specials</a>
+      <a href="#meat-only">Meat Only</a>
+      <a href="#patties">Patties</a>
+      <a href="#sides">Savory Sides</a>
+      <a href="#juices">Fresh Pressed Juices</a>
+      <a href="#soups">Soups</a>
+      <a href="#drinks">Bottled Drinks</a>
+      <a href="#pastries">Pastries</a>
+      <a href="#kids">Kids Meals</a>
+    </nav>
+
+    <div>
+
+      <section class="menu-cat" id="meals">
+        <div class="menu-cat-head">
+          <h2>Reggae Pot Meals</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-WWQKBZJGEMBQ8">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">16 dishes</span>
+        <p class="menu-cat-intro">The full plates — the dishes Reggae Pot is actually built around.</p>
+        <div class="menu-items">
+          <div class="menu-item"><div><div class="menu-item-name">Oxtail</div><div class="menu-item-desc">Slow-braised until it falls off the bone, in a rich brown gravy. The dish regulars order first.</div></div><div class="menu-item-price">$25.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Curry Goat</div><div class="menu-item-desc">Traditional Jamaican curry, slow-cooked and bone-in, the way it's done at home in Montego Bay.</div></div><div class="menu-item-price">$23.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Chicken</div><div class="menu-item-desc">Off the grill, seasoned with scotch bonnet peppers and fiery jerk spices. The easiest place to start.</div></div><div class="menu-item-price">$21.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Ackee &amp; Salt Fish</div><div class="menu-item-desc">Jamaica's national dish. A strong signal for anyone who grew up on the real thing.</div></div><div class="menu-item-price">$24.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Brown Stew Chicken</div><div class="menu-item-desc">Chicken braised in a savory brown stew, a Jamaican home-cooking staple.</div></div><div class="menu-item-price">$18.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Curry Chicken</div><div class="menu-item-desc">Bone-in chicken in a traditional Jamaican curry, with rice &amp; peas.</div></div><div class="menu-item-price">$18.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Pork</div><div class="menu-item-desc">Jerk-seasoned pork off the grill, with rice &amp; peas and a side.</div></div><div class="menu-item-price">$18.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Jerk BBQ Ribs</div><div class="menu-item-desc">Ribs finished jerk-style with a BBQ glaze, fall-off-the-bone tender.</div></div><div class="menu-item-price">$22.50</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Spicy Curry Shrimp</div><div class="menu-item-desc">Shrimp simmered in a spiced curry sauce, served with rice &amp; peas.</div></div><div class="menu-item-price">$22.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Shrimp</div><div class="menu-item-desc">Shrimp seasoned and grilled jerk-style, off the same grill as the chicken.</div></div><div class="menu-item-price">$20.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Rasta Pasta w/ Jerk Chicken</div><div class="menu-item-desc">Creamy jerk-spiced pasta with grilled chicken and bell peppers.</div></div><div class="menu-item-price">$23.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Rasta Pasta w/ Shrimp</div><div class="menu-item-desc">The same jerk-spiced pasta, built around shrimp instead.</div></div><div class="menu-item-price">$24.50</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Rasta Pasta w/ Oxtail</div><div class="menu-item-desc">Rasta pasta topped with slow-braised oxtail — the richest version on the menu.</div></div><div class="menu-item-price">$26.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Curry Goat Roti</div><div class="menu-item-desc">Curry goat wrapped in fresh roti, the on-the-go version of the classic.</div></div><div class="menu-item-price">$24.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Curry Chicken Roti</div><div class="menu-item-desc">Curry chicken wrapped in fresh roti, ready to eat with your hands.</div></div><div class="menu-item-price">$19.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Curry Potatoes &amp; Veggies</div><div class="menu-item-desc">A vegetarian curry built around potatoes and fresh vegetables.</div></div><div class="menu-item-price">$16.00</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="starters">
+        <div class="menu-cat-head">
+          <h2>Starters</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-KR3TD5Z9VG74J">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">5 dishes</span>
+        <div class="menu-items">
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Shrimp</div><div class="menu-item-desc">A smaller portion of the jerk shrimp, sized to start.</div></div><div class="menu-item-price">$12.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Leighton's Special</div></div><div class="menu-item-price">$15.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Wings Starter</div><div class="menu-item-desc">Jerk-seasoned chicken wings, grilled and ready to share.</div></div><div class="menu-item-price">$8.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Vegan Ackee Cups</div><div class="menu-item-desc">A plant-based take on ackee, served in a small cup to start.</div></div><div class="menu-item-price">$13.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Ackee &amp; Salt Fish Cups</div><div class="menu-item-desc">A starter-sized portion of the national dish.</div></div><div class="menu-item-price">$14.99</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="salads">
+        <div class="menu-cat-head">
+          <h2>Salads</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-3D47JB5MQXZ6A">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">2 dishes</span>
+        <div class="menu-items">
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Shrimp Salad</div><div class="menu-item-desc">Jerk shrimp over a fresh salad.</div></div><div class="menu-item-price">$15.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Chicken Salad</div><div class="menu-item-desc">Jerk chicken over a fresh salad.</div></div><div class="menu-item-price">$14.00</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="lunch">
+        <div class="menu-cat-head">
+          <h2>Lunch Specials</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-1HN6H0PFT7684">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">5 dishes</span>
+        <p class="menu-cat-intro">Weekday lunch pricing on Reggae Pot favorites.</p>
+        <div class="menu-items">
+          <div class="menu-item"><div><div class="menu-item-name">Lunch Jerk Chicken</div></div><div class="menu-item-price">$15.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Lunch Curry Chicken</div></div><div class="menu-item-price">$12.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Lunch Brown Stew Chicken</div></div><div class="menu-item-price">$12.99</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Oxtail Cheese Steak</div></div><div class="menu-item-price">$18.00</div></div>
+          <div class="menu-item"><div><div class="menu-item-name">Jerk Chicken Cheese Steak</div></div><div class="menu-item-price">$16.00</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="meat-only">
+        <div class="menu-cat-head">
+          <h2>Meat Only</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-0QCWXDE6Y8372">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">9 dishes</span>
+        <p class="menu-cat-intro">Just the protein — sides sold separately.</p>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-name">Curry Goat</div><div class="menu-item-price">$20.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Jerk Wings</div><div class="menu-item-price">$17.99</div></div>
+          <div class="menu-item"><div class="menu-item-name">Jerk BBQ Wings</div><div class="menu-item-price">$17.99</div></div>
+          <div class="menu-item"><div class="menu-item-name">Jerk Pork BBQ Ribs</div><div class="menu-item-price">$18.99</div></div>
+          <div class="menu-item"><div class="menu-item-name">Jerk Pork</div><div class="menu-item-price">$15.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Oxtail</div><div class="menu-item-price">$22.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Brown Stew Chicken</div><div class="menu-item-price">$15.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Curry Chicken</div><div class="menu-item-price">$15.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">1/2 Jerk Chicken</div><div class="menu-item-price">$15.00</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="patties">
+        <div class="menu-cat-head">
+          <h2>Patties</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-VJN2M4RC2D37E">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">6 items</span>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-name">Oxtail Patty</div><div class="menu-item-price">$14.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Beef Patty</div><div class="menu-item-price">$4.25</div></div>
+          <div class="menu-item"><div class="menu-item-name">Jerk Chicken Patty</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Curry Chicken Patty</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Veggie Patty</div><div class="menu-item-price">$4.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Coco Bread</div><div class="menu-item-price">$3.00</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="sides">
+        <div class="menu-cat-head">
+          <h2>Savory Sides</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-0SA1K7M91X3JG">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">14 items</span>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-name">Rice &amp; Peas</div><div class="menu-item-price">$4.99</div></div>
+          <div class="menu-item"><div class="menu-item-name">White Rice</div><div class="menu-item-price">$4.25</div></div>
+          <div class="menu-item"><div class="menu-item-name">Ripe Fried Plantains</div><div class="menu-item-price">$6.99</div></div>
+          <div class="menu-item"><div class="menu-item-name">Steamed Cabbage</div><div class="menu-item-price">$5.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Collard Greens</div><div class="menu-item-price">$6.99</div></div>
+          <div class="menu-item"><div class="menu-item-name">Roti</div><div class="menu-item-price">$6.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Baked Mac N Cheese</div><div class="menu-item-price">$6.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Corn Bread</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Fried Festival</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Fried Dumpling</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">French Fries</div><div class="menu-item-price">$3.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Mac Salad</div><div class="menu-item-price">$5.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Potato Salad</div><div class="menu-item-price">$5.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Veggie Salad</div><div class="menu-item-price">$4.00</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="juices">
+        <div class="menu-cat-head">
+          <h2>Fresh Pressed Juices</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-602Y5A9F11JHM">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">1 item online</span>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-name">Refill</div><div class="menu-item-price">$2.00</div></div>
+        </div>
+        <div class="menu-callout">
+          <p>Guava Pineapple, Mango Passion Fruit and Sorrel Ginger are made fresh daily but aren't showing correct pricing in our online ordering system right now — <span class="flavors">ask your server, or call ahead to confirm what's fresh today.</span> We're working on getting these fixed online. <!-- PLACEHOLDER: remove this callout once Clover/ezoo catalog pricing is fixed for these three items, per the Sep 3 audit's $0.00 finding --></p>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="soups">
+        <div class="menu-cat-head">
+          <h2>Soups</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-RXRM1N2AWRW1R">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">2 dishes</span>
+        <div class="menu-callout">
+          <p><span class="flavors">Red Peas w/ Beef and Pumpkin Chicken</span> aren't showing correct pricing online right now — ask your server, or call ahead. <!-- PLACEHOLDER: same $0.00 catalog issue as the juices above --></p>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="drinks">
+        <div class="menu-cat-head">
+          <h2>Bottled Drinks</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-049D6MSFTW6Y8">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">17 items</span>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-name">Bottled Water</div><div class="menu-item-price">$1.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Can Coke</div><div class="menu-item-price">$2.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Can Pepsi</div><div class="menu-item-price">$2.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Can Sprite</div><div class="menu-item-price">$2.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Lemonade</div><div class="menu-item-price">$3.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">SF Strawberry Lemonade</div><div class="menu-item-price">$3.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Snapple</div><div class="menu-item-price">$3.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Vita Malt</div><div class="menu-item-price">$4.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Pineapple Soda</div><div class="menu-item-price">$4.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Kola Champagne</div><div class="menu-item-price">$4.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Cream Soda</div><div class="menu-item-price">$4.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Jamaican Sodas</div><div class="menu-item-price">$4.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Ginger Beer</div><div class="menu-item-price">$4.25</div></div>
+          <div class="menu-item"><div class="menu-item-name">Ting</div><div class="menu-item-price">$4.25</div></div>
+          <div class="menu-item"><div class="menu-item-name">Peanut Irish Moss</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Vanilla Irish Moss</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Tropical Rhythm</div><div class="menu-item-price">$4.50</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="pastries">
+        <div class="menu-cat-head">
+          <h2>Pastries</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-X9DXBWECQFX36">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">5 items</span>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-name">Sorrel Fruitcake</div><div class="menu-item-price">$6.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Rum Fruitcake</div><div class="menu-item-price">$6.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Sweet Potato Pudding</div><div class="menu-item-price">$4.50</div></div>
+          <div class="menu-item"><div class="menu-item-name">Coconut White Cake</div><div class="menu-item-price">$4.00</div></div>
+          <div class="menu-item"><div class="menu-item-name">Pineapple Upside-Down Cake</div><div class="menu-item-price">$4.00</div></div>
+        </div>
+      </section>
+
+      <section class="menu-cat" id="kids">
+        <div class="menu-cat-head">
+          <h2>Kids Meals</h2>
+          <a class="menu-cat-order" href="https://ezoo.app/reggaepotcentennial#cat-2TPM0M0Y2FEY4">Order this category ▸</a>
+        </div>
+        <span class="menu-cat-count">1 item</span>
+        <div class="menu-items">
+          <div class="menu-item"><div class="menu-item-name">Chicken Strips</div><div class="menu-item-price">$6.99</div></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- FINAL CTA — reused from homepage -->
+  <section class="final-cta">
+    <div class="wrap">
+      <span class="eyebrow">Order ahead</span>
+      <h2>Skip the line. Ready when you get here.</h2>
+      <p class="lede">Order online for pickup or delivery from either location — the same food, the same portions, on your schedule.</p>
+      <div class="hero-ctas">
+        <a class="btn" style="background:var(--green); color:#fff;" href="/order/centennial/">Order Online — Centennial</a>
+        <a class="btn btn-outline" href="/order/denver/">Order Online — Denver</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="foot-logo">
+        <img class="mark" src="../assets/icon.png" alt="" width="186" height="119">
+        <img class="logotype" src="../assets/logo-txt.png" alt="Reggae Pot" width="473" height="66">
+      </div>
+      <p style="max-width:32ch; opacity:0.8;">Authentic Jamaican food in south Denver metro. Owned and cooked by Tamara Nisbeth of Montego Bay.</p>
+    </div>
+    <div>
+      <h4>Centennial</h4>
+      <ul>
+        <li>7562 S University Blvd Unit C</li>
+        <li><a href="tel:+13039975623">303-997-5623</a></li>
+        <li><a href="/order/centennial/">Order Online ▸</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Denver</h4>
+      <ul>
+        <li>2243 S Monaco St Pkwy #104</li>
+        <li><a href="tel:+17204102956">720-410-2956</a></li>
+        <li><a href="/order/denver/">Order Online ▸</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>More</h4>
+      <ul>
+        <li><a href="/menu/">Full Menu</a></li>
+        <li><a href="https://catering.reggaepotjamaicangrill.com/">Catering</a></li>
+        <li><a href="/#why">About Tamara</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Reggae Pot Jamaican Grill.</span>
+    <span>Redesign prototype — see README.md in this folder before this ships.</span>
+  </div>
+</footer>
+
+<nav class="mobile-order-bar" aria-label="Quick order">
+  <a class="centennial" href="/order/centennial/">Order: Centennial</a>
+  <a class="denver" href="/order/denver/">Order: Denver</a>
+</nav>
+
+<script>
+  // Highlight the jump-nav item matching whichever category is in view.
+  var sections = document.querySelectorAll('.menu-cat');
+  var links = document.querySelectorAll('.jump-nav a');
+  if ('IntersectionObserver' in window && sections.length) {
+    var byId = {};
+    links.forEach(function(a){ byId[a.getAttribute('href').slice(1)] = a; });
+    var jio = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var link = byId[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach(function(a){ a.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      });
+    }, {rootMargin: '-140px 0px -70% 0px'});
+    sections.forEach(function(s){ jio.observe(s); });
+  }
+</script>
+
+</body>
+</html>

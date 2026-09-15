@@ -1,0 +1,399 @@
+:root{
+    --ink:#1a1a1a;
+    --cream:#faf6ec;
+    --cream-deep:#f1e7d3;
+    /* Real brand palette, pulled live from reggaepotjamaicangrill.com on 2026-09-15:
+       logo + Order Online button = #0b9444, nav bar = #ffbf00, active-nav accent = #b50d0a,
+       header bars = #222. --green-deep/--gold-deep/--red-deep/--green-hover are derived
+       shades of those same hues for hover states and full-bleed dark sections — not invented colors. */
+    --green:#0b9444;
+    --green-hover:#087a38;
+    --green-deep:#0a2a1a;
+    --gold:#ffbf00;
+    --gold-deep:#c99000;
+    --red:#b50d0a;
+    --red-deep:#8a0a08;
+    --line:rgba(11,148,68,0.15);
+    --radius:14px;
+    --max:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* Fraunces + Work Sans — reverted 2026-09-15 at Cynthia's request, back from the
+     Poppins/Lato pairing that matched the live site's actual fonts exactly. */
+  h1,h2,h3,.serif{
+    font-family:'Fraunces',Georgia,serif;
+    line-height:1.2;
+    margin:0 0 0.5em;
+    font-weight:600;
+  }
+  h1{font-size:clamp(2.3rem,5.5vw,3.6rem); line-height:1.15;}
+  h2{font-size:clamp(1.7rem,3.5vw,2.5rem);}
+  h3{font-size:1.25rem; margin-bottom:0.35em;}
+  p{margin:0 0 1em;}
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding-inline:24px;}
+  .eyebrow{
+    display:inline-block; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+    font-weight:600; margin-bottom:0.9em;
+  }
+  section{padding-block:clamp(56px,9vw,104px);}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; justify-content:center;
+    padding:0.95em 1.6em; border-radius:999px; font-weight:600; font-size:0.98rem;
+    text-decoration:none; border:2px solid transparent; cursor:pointer; white-space:nowrap;
+    transition:transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-ember{background:var(--green); color:#fff;}
+  .btn-ember:hover{background:var(--green-hover); box-shadow:0 8px 22px -8px rgba(11,148,68,0.55);}
+  .btn-outline{background:transparent; border-color:currentColor;}
+  .btn-outline:hover{background:rgba(255,255,255,0.08);}
+  .btn-outline-dark{background:transparent; border-color:var(--green); color:var(--green);}
+  .btn-outline-dark:hover{background:rgba(11,148,68,0.06);}
+  .btn-sm{padding:0.7em 1.2em; font-size:0.88rem;}
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(250,246,236,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding-block:14px;}
+  /* Real logo assets, pulled from reggaepotjamaicangrill.com/wp-content/uploads/2021/06/
+     (logo-txt.png, icon.png) — same files the live site uses, not redrawn. */
+  .wordmark{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .wordmark img.mark{height:38px; width:auto;}
+  .wordmark img.logotype{height:26px; width:auto;}
+  .foot-logo{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .foot-logo img.mark{height:30px; width:auto;}
+  .foot-logo img.logotype{height:20px; width:auto;}
+  .nav-links{display:flex; align-items:center; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; font-weight:500; font-size:0.95rem; color:var(--ink); opacity:0.85;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{display:flex; gap:10px;}
+  @media (max-width:860px){
+    .nav-links, .nav-cta{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  /* Layered on purpose, not a single fragile background: .hero's own background-image is
+     the fallback (shows instantly, and is what renders if the video is hidden or fails to
+     load); the <video> sits on top of it; the gradient scrim (::before) and grain (::after)
+     sit above both for text legibility. Every layer is plain HTML/CSS — nothing here can
+     throw the "Can not detect viewport width" error the live site's slider plugin does. */
+  .hero{
+    position:relative; overflow:hidden;
+    background:url("hero.jpg") center 30%/cover no-repeat, var(--green-deep);
+    color:var(--cream);
+    padding-block:clamp(72px,12vw,132px) clamp(64px,10vw,104px);
+  }
+  .hero-video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%;
+    z-index:0;
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hero-video{display:none;} /* falls back to the static hero.jpg background above */
+  }
+  /* Real hero photo + video from the live site (wp-content/uploads/2021/06), dimmed under a
+     green scrim so the brand-green stays the dominant read and white text stays legible.
+     PLACEHOLDER note: both are 2021-dated per the Sep 3 audit — fine to keep if the kitchen
+     confirms they still represent the food, otherwise swap for current footage/photos. */
+  /* Vertical vignette instead of a diagonal fade: dark at the TOP (nav contrast) and
+     dark at the BOTTOM, so the hero photo doesn't end on a bright edge right where it
+     meets the next section. Lighter through the middle where the hero text sits. */
+  .hero::before{
+    content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(10,42,26,0.92) 0%, rgba(10,42,26,0.74) 22%, rgba(10,42,26,0.74) 72%, rgba(10,42,26,0.96) 100%),
+      radial-gradient(1100px 520px at 82% -10%, rgba(255,191,0,0.30), transparent 60%);
+  }
+  .hero::after{ /* subtle grain/texture so the dark green isn't flat */
+    content:""; position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0.5;
+    background-image:radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size:3px 3px;
+  }
+  .hero-inner{position:relative; z-index:3; display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:stretch;}
+  @media (max-width:920px){ .hero-inner{grid-template-columns:1fr;} }
+  /* Right column anchors the location card to the top and the quote to the bottom of
+     whatever height the left column sets, instead of one short card floating centered
+     with empty photo showing above and below it. */
+  .hero-aside-col{display:flex; flex-direction:column; justify-content:space-between; gap:24px;}
+  .hero .eyebrow{color:var(--gold);}
+  .hero h1{color:#fff;}
+  .hero h1 em{font-style:italic; color:var(--gold);}
+  .hero p.lede{font-size:1.12rem; max-width:46ch; color:rgba(250,246,236,0.88);}
+  /* Centered text column, per request — eyebrow/headline/subhead/CTAs/benefits all
+     center-aligned as one block instead of left-aligned against the aside. */
+  .hero-text{text-align:center;}
+  .hero-text p.lede{margin-inline:auto;}
+  .hero-ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:1.6em;}
+  .hero-text .hero-ctas{justify-content:center;}
+  /* The three conversion angles named explicitly in the Aug 10 action plan
+     ("skip the line / no wait / more convenient"), placed right at the CTA
+     decision point rather than buried in body copy. */
+  .hero-benefits{
+    display:flex; flex-wrap:wrap; gap:8px 18px; list-style:none; margin:1.1em 0 0; padding:0;
+    font-size:0.85rem; font-weight:600; color:rgba(250,246,236,0.82);
+  }
+  .hero-text .hero-benefits{justify-content:center;}
+  .hero-benefits li{display:flex; align-items:center; gap:7px;}
+  .hero-benefits li::before{content:"✓"; color:var(--gold); font-weight:700;}
+  /* Highlighted order button: gold instead of green so it actually pops against the
+     dark green hero, rather than a green button nearly disappearing into a green
+     backdrop. Scoped to the hero only — every other Order Online button sitewide
+     (header, locations, footer, final CTA) keeps the standard green treatment. */
+  .hero-ctas .btn-ember{
+    background:var(--gold); color:var(--green-deep);
+    box-shadow:0 10px 28px -8px rgba(255,191,0,0.55);
+  }
+  .hero-ctas .btn-ember:hover{background:#fff; box-shadow:0 12px 32px -8px rgba(255,191,0,0.7);}
+  .hero-quote{
+    padding:16px 18px; border-radius:var(--radius);
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14);
+    max-width:44ch; font-size:0.95rem;
+  }
+  .hero-quote p{margin:0 0 6px; font-style:italic;}
+  .hero-quote cite{font-style:normal; font-size:0.8rem; opacity:0.75;}
+
+  .hero-card{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.16);
+    border-radius:20px; padding:26px; backdrop-filter:blur(2px);
+  }
+  .hero-card h3{color:var(--gold); font-size:1rem; text-transform:uppercase; letter-spacing:0.08em; font-family:'Work Sans',sans-serif; font-weight:600;}
+  .hero-card ul{list-style:none; margin:0; padding:0; display:grid; gap:14px;}
+  .hero-card li{display:flex; justify-content:space-between; gap:12px; font-size:0.95rem; border-bottom:1px dashed rgba(255,255,255,0.16); padding-bottom:12px;}
+  .hero-card li:last-child{border-bottom:none; padding-bottom:0;}
+  .hero-card .loc-name{font-weight:600; color:#fff;}
+  .hero-card .loc-meta{opacity:0.78; font-size:0.85rem; display:block;}
+  .hero-card a.mini{color:var(--gold); font-weight:600; text-decoration:none; font-size:0.85rem; white-space:nowrap;}
+
+  /* ---------- Why section ---------- */
+  /* Dark green background, not cream — the section right above it (Flavors of Jamaica)
+     is also cream, and with no visual break between them the two blended into one long
+     section. Matches the same --green-deep used for Dishes/Order Online elsewhere. */
+  #why{background:var(--green-deep); color:var(--cream);}
+  #why h2{color:#fff;}
+  #why p{color:rgba(250,246,236,0.88);}
+  #why .eyebrow{color:var(--gold);}
+  #why .trait h3{color:#fff;}
+  .why-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:start;}
+  @media (max-width:860px){ .why-grid{grid-template-columns:1fr; gap:32px;} }
+  .trait-list{display:grid; gap:22px; margin-top:1.4em;}
+  .trait{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start;}
+  .trait .mark{
+    width:34px; height:34px; border-radius:50%; background:var(--gold); color:var(--green-deep);
+    display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:0.95rem;
+    flex:none;
+  }
+  .why-portrait{
+    border-radius:var(--radius); background:linear-gradient(155deg,#e8dcc0,#d9c69c);
+    aspect-ratio:4/5; display:flex; align-items:flex-end; padding:20px; position:relative;
+    border:1px solid rgba(255,255,255,0.16); overflow:hidden;
+  }
+  .why-portrait .tag{
+    background:rgba(22,59,46,0.92); color:#fff; padding:10px 14px; border-radius:10px; font-size:0.85rem;
+  }
+  .why-portrait .ph-note{position:absolute; top:12px; left:12px; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; background:rgba(255,255,255,0.7); padding:4px 8px; border-radius:6px; color:var(--green);}
+
+  /* ---------- Copy blocks ---------- */
+  /* Each of the live site's own content sections (Good Vibes, About Us, Flavors of
+     Jamaica, Jamaican Specialties, Order Online) gets its own section here, matching
+     how they exist as distinct blocks on the real site — not folded into other
+     sections as extra unlabeled paragraphs. */
+  .copy-block{text-align:center;}
+  .copy-block .wrap{max-width:760px;}
+  .copy-block p{font-size:1.08rem; opacity:0.88; margin-top:0.7em; margin-bottom:0;}
+  .copy-block--dark{background:var(--green-deep); color:var(--cream);}
+  .copy-block--dark h2{color:#fff;}
+  .copy-block--dark .eyebrow{color:var(--gold);}
+  .copy-block--gold{background:linear-gradient(120deg, var(--gold) 0%, var(--gold-deep) 100%); color:var(--ink);}
+  .copy-block--gold h2{color:var(--ink);}
+  .copy-block--gold .eyebrow{color:var(--ink); opacity:0.7;}
+
+  /* ---------- Content split (photo card + text, side by side) ---------- */
+  /* Replaces the earlier full-bleed photo-background treatment for these four sections.
+     That approach (dark scrim over an edge-to-edge photo) kept producing a visible seam
+     wherever two of them stacked directly on top of each other — fixing the scrim's
+     opacity balanced the edges but Cynthia's screenshots still read it as sections
+     glued together. Removing the full-bleed edge removes the seam structurally: each
+     photo is now a contained, rounded card next to the text (the same pattern already
+     used in the Why/Tamara section below), on a plain cream/cream-deep background like
+     the rest of the page. No edge-to-edge photo boundary means there is no edge left to
+     clash — and alternating the image side + background tint per section keeps four
+     back-to-back light sections from reading as one repeated block. */
+  .content-split{background:var(--cream);}
+  .content-split.tint{background:var(--cream-deep);}
+  /* Not scoped to .content-split — the Final CTA section below reuses this same
+     photo-card-next-to-text grid on its own gold background. */
+  .split-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+  }
+  .split-grid.reverse .split-media{order:2;}
+  .split-grid.reverse .split-copy{order:1;}
+  @media (max-width:860px){
+    .split-grid{grid-template-columns:1fr; gap:26px;}
+    .split-grid .split-media, .split-grid.reverse .split-media,
+    .split-grid .split-copy, .split-grid.reverse .split-copy{order:0;}
+  }
+  .split-media{
+    aspect-ratio:5/4; border-radius:var(--radius); background-size:cover; background-position:center;
+    border:1px solid var(--line);
+  }
+  .split-copy p{font-size:1.08rem; opacity:0.85; margin-top:0.7em; max-width:52ch;}
+
+  /* ---------- Dishes ---------- */
+  .dishes{background:var(--green-deep); color:var(--cream);}
+  .dishes .eyebrow{color:var(--gold);}
+  .dishes h2{color:#fff;}
+  /* Heading + intro paragraph used to sit alone on the left with the whole right side of
+     this full-width section empty above the grid. Putting the "View full menu" link up
+     here, opposite the heading, fills that space with a real element instead of padding. */
+  .dishes-head{
+    display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap;
+  }
+  .dishes-head .btn{flex:none;}
+  @media (max-width:680px){
+    .dishes-head{align-items:flex-start;}
+  }
+  /* Two columns, not four — bigger cards mean bigger photos. The food is the sell, so
+     the image should dominate each card instead of sharing space with three neighbors. */
+  .dish-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:28px; margin-top:2em;}
+  @media (max-width:680px){ .dish-grid{grid-template-columns:1fr;} }
+  .dish-card{
+    background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:var(--radius);
+    overflow:hidden; transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .dish-card:hover{transform:translateY(-4px); border-color:rgba(255,191,0,0.55); box-shadow:0 16px 34px -14px rgba(255,191,0,0.35);}
+  .dish-photo{aspect-ratio:1/1; position:relative; background-size:cover; background-position:center;}
+  .dish-photo.has-photo{background-blend-mode:multiply;}
+  /* No fake-photo gradient standing in for a missing image — that reads as a broken
+     asset, not a design choice. A dish with no real photo yet gets a bold solid-gold
+     typographic card instead (Miss Lily's-style confident color block), which looks
+     intentional next to the three real photos rather than like something failed to load. */
+  .dish-photo--type{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:18px; background:var(--gold);
+  }
+  .dish-photo--type .type-name{
+    font-family:'Fraunces',serif; font-weight:600; font-size:clamp(1.8rem,4vw,2.4rem); line-height:1.15;
+    color:var(--green-deep); text-transform:uppercase;
+  }
+  .dish-photo--type .type-sub{
+    font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;
+    color:rgba(10,42,26,0.7); margin-top:10px;
+  }
+  .dish-body{padding:20px 22px 24px;}
+  .dish-body h3{color:#fff; font-size:1.35rem;}
+  .dish-body p{margin:0; font-size:0.98rem; opacity:0.82;}
+
+  /* ---------- Locations ---------- */
+  .loc-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:2em;}
+  @media (max-width:820px){ .loc-grid{grid-template-columns:1fr;} }
+  /* The two cards stretch to match the taller one (grid default), but Centennial has an
+     extra warning box Denver doesn't. margin-top:auto on the button (below) pushes it to
+     the bottom of whichever height the row stretches to, instead of leaving empty white
+     space under the shorter card. */
+  .loc-card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:28px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .loc-card h3{font-size:1.4rem;}
+  .loc-badge{align-self:flex-start; background:var(--cream-deep); color:var(--green); font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; padding:5px 10px; border-radius:999px;}
+  .loc-facts{list-style:none; margin:0; padding:0; display:grid; gap:8px; font-size:0.95rem;}
+  .loc-facts strong{display:inline-block; min-width:64px; color:var(--green);}
+  .loc-card .btn{margin-top:auto; align-self:flex-start;}
+
+  /* ---------- Reviews ---------- */
+  .reviews{background:var(--cream-deep);}
+  .review-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:2em;}
+  @media (max-width:820px){ .review-grid{grid-template-columns:1fr;} }
+  .review-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px;}
+  .review-card p{font-style:italic; font-size:1.05rem; color:var(--green); margin-bottom:10px;}
+  .review-card cite{font-style:normal; font-size:0.82rem; opacity:0.65;}
+  .catering-note{margin-top:34px; padding:22px 24px; border-radius:var(--radius); background:#fff; border:1px solid var(--line); display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between;}
+  .catering-note p{margin:0; max-width:52ch;}
+
+  /* ---------- Final CTA ---------- */
+  /* Gold, not green, on purpose: it's their real nav-bar color, under-used elsewhere in this
+     page, and it gives the final push its own visual beat instead of repeating the hero green.
+     Photo + text split (not centered text) so the page's last section before the footer is a
+     real photo, not a third plain color panel back to back with Order Online above it. */
+  .final-cta{
+    background:linear-gradient(120deg, var(--gold) 0%, var(--gold-deep) 100%);
+    color:var(--ink);
+  }
+  .final-cta h2{color:var(--ink);}
+  .final-cta p.lede{color:rgba(26,26,26,0.78); font-size:1.05rem;}
+  .final-cta .btn-outline{border-color:rgba(26,26,26,0.55); color:var(--ink);}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink); color:rgba(250,246,236,0.82); padding-block:56px 28px; font-size:0.9rem;}
+  .foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:32px;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+  footer h4{color:#fff; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 14px;}
+  footer ul{list-style:none; margin:0; padding:0; display:grid; gap:9px;}
+  footer a{text-decoration:none; color:inherit; opacity:0.85;}
+  footer a:hover{opacity:1;}
+  .foot-bottom{margin-top:44px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.12); font-size:0.8rem; opacity:0.6; display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px;}
+
+  /* ---------- Mobile sticky order bar (THE fix) ---------- */
+  .mobile-order-bar{display:none;}
+  @media (max-width:768px){
+    .mobile-order-bar{
+      display:flex; position:fixed; left:0; right:0; bottom:0; z-index:50;
+      background:var(--green-deep); border-top:1px solid rgba(255,255,255,0.14);
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      gap:10px; box-shadow:0 -8px 24px -12px rgba(0,0,0,0.5);
+    }
+    .mobile-order-bar a{
+      flex:1; text-align:center; padding:0.85em 0.6em; border-radius:12px; font-weight:700; font-size:0.92rem;
+      text-decoration:none;
+    }
+    .mobile-order-bar a.centennial{background:var(--gold); color:var(--green-deep);}
+    .mobile-order-bar a.denver{background:var(--green); color:#fff;}
+    body{padding-bottom:64px;} /* room so the bar never covers footer content */
+  }
+
+  /* ---------- Scroll reveal (signature, subtle; skipped for reduced motion) ---------- */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* Staggered entrance for grid children — each card/row fades in a beat after the one
+     before it instead of the whole grid appearing as one flat block. The delay is set on
+     the element itself, so it only takes effect once .in is added (see reveal above);
+     nothing here overrides the reduced-motion escape hatch further down. */
+  .dish-grid > .reveal:nth-child(1),.loc-grid > .reveal:nth-child(1),.review-grid > .reveal:nth-child(1){transition-delay:0s;}
+  .dish-grid > .reveal:nth-child(2),.loc-grid > .reveal:nth-child(2),.review-grid > .reveal:nth-child(2){transition-delay:0.1s;}
+  .dish-grid > .reveal:nth-child(3),.review-grid > .reveal:nth-child(3){transition-delay:0.2s;}
+  .dish-grid > .reveal:nth-child(4),.review-grid > .reveal:nth-child(4){transition-delay:0.3s;}
+  .trait-list .trait:nth-child(1){transition-delay:0s;}
+  .trait-list .trait:nth-child(2){transition-delay:0.12s;}
+  .trait-list .trait:nth-child(3){transition-delay:0.24s;}
+  .trait-list .trait:nth-child(4){transition-delay:0.36s;}
+  .trait-list .trait{opacity:0; transform:translateX(-10px); transition:opacity 0.5s ease, transform 0.5s ease;}
+  .reveal.in .trait-list .trait{opacity:1; transform:translateX(0);}
+
+  /* Hero: plays on page load, not on scroll (it's already in view), so the first thing a
+     visitor sees is a soft rise-in rather than a static block appearing instantly. */
+  @keyframes heroRise{from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);}}
+  .hero-text{animation:heroRise 0.75s ease both;}
+  .hero-aside-col{animation:heroRise 0.75s ease 0.18s both;}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal, .trait-list .trait{opacity:1; transform:none; transition:none;}
+    .hero-text, .hero-aside-col{animation:none;}
+  }
+
+  .skip-link{position:absolute; left:-999px; top:auto;}
+  .skip-link:focus{left:12px; top:12px; z-index:100; background:#fff; padding:10px 14px; border-radius:8px;}
