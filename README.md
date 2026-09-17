@@ -310,6 +310,22 @@ Cynthia's screenshot showed "View the full menu" sitting oddly next to/under jus
 
 **Verified:** ✅ `getBoundingClientRect` confirms both rows now share the exact same width (429.9px) and left edge (x:24), zero console errors. ❓ No screenshot this round (same recurring tool flakiness) — the measurement is exact, but take a look yourself when you can.
 
+## Revised September 17, 2026 — removed every em-dash from visible content
+
+Cynthia flagged too many em-dashes in the published content. Went through every visible piece of text on both pages (headings, paragraphs, button labels, meta title/description, footer note, review citations) and replaced each em-dash with whatever reads naturally in context, no fixed formula:
+
+- Button labels ("Order Online — Centennial") → colon ("Order Online: Centennial"), matching the header/mobile-bar's existing "Order: Centennial" style
+- Joining two clauses → comma, period, or colon depending on the relationship (e.g. "off the grill — seasoned with..." → "off the grill, seasoned with...")
+- Review citations ("— Reggae Pot customer review") → dropped the dash entirely, the `<cite>` styling already sets it apart
+- `<title>` tag → em-dash swapped for a pipe, the standard SEO title separator
+- Byline ("owner & lead chef — Montego Bay, Jamaica") → "owner & lead chef, from Montego Bay, Jamaica"
+
+**One correction worth flagging:** the Flavors of Jamaica paragraph is one of the live-site verbatim blocks, and the live site itself actually uses an em-dash mid-sentence ("...island of Jamaica — right in the heart of Colorado"). I replaced it with a comma per this instruction — small punctuation deviation from strict verbatim, but the wording itself is untouched, and while re-checking that sentence against the live site I noticed the *next* clause on the live site actually uses a period + "Or," (not an em-dash like this prototype had) — fixed that to match the live site exactly as a bonus, since it was wrong either way.
+
+Left em-dashes alone in two places that aren't visitor-facing: my own HTML comments (dev notes to whoever picks up this code next) and the CSS file's comments. Neither renders on the page.
+
+**Verified:** ✅ ran a live DOM text-content check on both pages after the changes (`document.body.innerText.includes('—')`) — confirmed **zero** em-dashes in what a visitor actually sees, on both index.html and menu/index.html. Zero console errors, screenshot-confirmed the menu page renders cleanly.
+
 ## Not done yet
 
 - The other 6 pages (order/centennial, order/denver, about, catering, locations) — homepage and menu are the two pages built so far.
