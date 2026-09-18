@@ -398,6 +398,20 @@ Ordering itself stays on ezoo, same approach as the menu page's category links �
 
 **Verified:** ✅ both pages confirmed live-loading (HTTP 200), zero console errors on both, zero em-dashes, zero period headings, all 3 primary buttons on each page confirmed the same gold color, both map embeds confirmed pointing at the correct real address, both "Start Your Order" links confirmed pointing at the correct real ezoo storefront (not a copy-paste of the other location's), screenshot-confirmed both heroes render correctly.
 
+## Revised September 18, 2026 — the order pages were too close to a generic template
+
+Cynthia said the new Centennial/Denver pages still read too close to a typical business "location" page — a hero banner over a plain two-column address/hours block with an embedded Google Map is an extremely common, generic pattern (countless site builders produce exactly this), regardless of whether it happened to match the live site or not.
+
+**Rebuilt both pages to reuse this prototype's own established components instead of inventing a generic layout:**
+- The hero is now the **exact same full-bleed photo hero** used on the homepage (not a shrunk-down banner), with the headline and CTAs given the same weight they get everywhere else on the site.
+- Address/phone/hours now live in the **same `hero-card` glass panel** already used for "Two Locations, One Kitchen" on the homepage — a component Cynthia has already seen and approved through many rounds — instead of a plain two-column text list.
+- **Removed the embedded Google Maps iframe entirely.** A map widget is one of the most generic "template site" signatures there is. "Get Directions" is still a real, working link (opens Google Maps with the real address), it's just not a dominant embedded box anymore.
+- Replaced the map's spot with the **same photo-led split section** used for Good Vibes/Jamaican Grill on the homepage — a real photo, a short paragraph, and the order CTA again.
+
+**Bug caught while verifying:** the new `.reveal` elements (hero-card, hero-quote, the split section) had no scroll-reveal script on these pages, so they'd have stayed invisible (`opacity:0`) forever — copied over the same script the homepage and menu page already use.
+
+**Verified:** ✅ confirmed both pages load, zero console errors, zero em-dashes, zero period headings, all 4 primary buttons on each page confirmed the same gold color, confirmed the hero-card and split section actually render at full opacity (not stuck invisible), screenshot-confirmed both heroes and both hero-cards render correctly with the real address/phone/hours and working Directions/Call links.
+
 ## Not done yet
 
 - The remaining pages (about, catering, a general locations index) — homepage, menu, and both order pages (Centennial + Denver) are built so far.

@@ -29,33 +29,16 @@
 
 <link rel="stylesheet" href="../../assets/site.css">
 <style>
-  /* ---------- Order-page-only additions ---------- */
-  .loc-hero{
-    position:relative; overflow:hidden; color:#fff;
-    background:url("../../assets/hero.jpg") center 30%/cover no-repeat, var(--green-deep);
-    padding-block:clamp(56px,9vw,88px);
-  }
-  .loc-hero::before{
-    content:""; position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(10,42,26,0.88) 0%, rgba(10,42,26,0.7) 45%, rgba(10,42,26,0.92) 100%);
-  }
-  .loc-hero .wrap{position:relative; z-index:1;}
-  .loc-hero .eyebrow{color:var(--gold);}
-  .loc-hero h1{color:#fff; font-size:clamp(2rem,4.5vw,3rem); max-width:18ch;}
-  .loc-hero p.lede{max-width:56ch; color:rgba(250,246,236,0.9); font-size:1.08rem;}
-  .loc-quickfacts{display:flex; flex-wrap:wrap; gap:20px 36px; margin:1.4em 0 1.8em; font-size:0.94rem;}
-  .loc-quickfacts strong{color:var(--gold); display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;}
-
-  .loc-main{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; padding-block:64px;}
-  @media (max-width:880px){ .loc-main{grid-template-columns:1fr; gap:36px;} }
-  .loc-info h2{margin-bottom:0.5em;}
-  .loc-info p{opacity:0.85;}
-  .loc-facts-full{list-style:none; margin:1.4em 0; padding:0; display:grid; gap:14px; font-size:0.98rem;}
-  .loc-facts-full strong{display:block; color:var(--green); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px;}
-  .loc-info-ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:1.6em;}
-  .loc-map{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); aspect-ratio:4/3;}
-  .loc-map iframe{width:100%; height:100%; border:0;}
-
+  /* ---------- Order-page-only additions ----------
+     Revised: the first version of this page (hero banner + a plain 2-column
+     address/hours block next to an embedded Google Map) read too close to a generic
+     "business location page" template — exactly the kind of page this whole redesign
+     exists to move away from. Rebuilt to reuse this prototype's OWN established,
+     already-approved components instead of inventing a new generic layout: the real
+     hero (full-bleed photo/scrim, same as the homepage) with the hero-card glass panel
+     for address/phone/hours (same component as the homepage's "Two Locations" card),
+     and a photo-led split section instead of an embedded map iframe. Directions stay
+     one real link, just not a dominant embedded widget. */
   .order-cta{background:var(--green-deep); color:var(--cream); text-align:center;}
   .order-cta .wrap{max-width:640px;}
   .order-cta h2{color:#fff;}
@@ -90,41 +73,72 @@
 
 <main id="main">
 
-  <section class="loc-hero">
-    <div class="wrap">
-      <span class="eyebrow">Order Online · Centennial</span>
-      <h1>Ready when you are, Centennial</h1>
-      <p class="lede">Order ahead from our Centennial location and skip the wait. Same real Jamaican food, cooked the way Tamara Nisbeth learned in Montego Bay.</p>
-      <div class="loc-quickfacts">
-        <div><strong>Address</strong>7562 S University Blvd Unit C, Centennial, CO 80122</div>
-        <div><strong>Phone</strong><a href="tel:+13039975623">303-997-5623</a></div>
-        <div><strong>Hours</strong>Mon–Thu 11am–8pm · Fri–Sat 11am–9pm · Sun 11pm–7pm</div>
+  <!-- HERO — the same full-bleed photo hero as the homepage, not a shrunk banner, with
+       the same hero-card glass panel used for "Two Locations" there — here showing this
+       one location's full detail instead of a summary. -->
+  <section class="hero" id="top" style="background-image:url('../../assets/hero.jpg');">
+    <div class="wrap hero-inner">
+      <div class="hero-text">
+        <span class="eyebrow">Order Online · Centennial</span>
+        <h1>Ready when you are, <em>Centennial</em></h1>
+        <p class="lede">Order ahead and skip the wait. Same real Jamaican food, cooked the way Tamara Nisbeth learned in Montego Bay.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-ember" href="https://ezoo.app/reggaepotcentennial">Start Your Order ▸</a>
+          <a class="btn btn-outline" href="/menu/">View the Menu</a>
+        </div>
+        <ul class="hero-benefits">
+          <li>Skip the line</li>
+          <li>No wait</li>
+          <li>Order ahead, pick up when ready</li>
+        </ul>
       </div>
-      <div class="cta-row">
-        <a class="btn btn-ember" href="https://ezoo.app/reggaepotcentennial">Start Your Order ▸</a>
-        <a class="btn btn-outline" href="/menu/">View the Menu</a>
+      <div class="hero-aside-col">
+        <aside class="hero-card reveal">
+          <h3>Centennial Details</h3>
+          <ul>
+            <li>
+              <span>
+                <span class="loc-name">Address</span>
+                <span class="loc-meta">7562 S University Blvd Unit C, Centennial, CO 80122</span>
+              </span>
+              <a class="mini" href="https://www.google.com/maps/dir/?api=1&destination=7562+S+University+Blvd+Unit+C,+Centennial,+CO+80122" target="_blank" rel="noreferrer">Directions ▸</a>
+            </li>
+            <li>
+              <span>
+                <span class="loc-name">Phone</span>
+                <span class="loc-meta">303-997-5623</span>
+              </span>
+              <a class="mini" href="tel:+13039975623">Call ▸</a>
+            </li>
+            <li>
+              <span>
+                <span class="loc-name">Hours</span>
+                <span class="loc-meta">Mon–Thu 11am–8pm<br>Fri–Sat 11am–9pm<br>Sun 11pm–7pm<!-- VERIFY: Sunday hours as published live — a close time before an open time isn't valid, likely meant 11am–7pm, needs a corrected time from the owner --></span>
+              </span>
+            </li>
+          </ul>
+        </aside>
+        <div class="hero-quote reveal">
+          <p>Ordering from Denver instead?</p>
+          <cite><a href="/order/denver/" style="color:var(--gold);">Go to the Denver order page ▸</a></cite>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="loc-main-section">
-    <div class="wrap loc-main">
-      <div class="loc-info">
-        <span class="eyebrow" style="color:var(--red)">Visit or order ahead</span>
-        <h2>Centennial, Colorado</h2>
-        <p>Dine in for the reggae music and the full spread, or order ahead on ezoo and pick up when it's ready. No account needed to browse the menu, real prices shown before you check out.</p>
-        <ul class="loc-facts-full">
-          <li><strong>Address</strong> 7562 S University Blvd Unit C, Centennial, CO 80122</li>
-          <li><strong>Phone</strong> <a href="tel:+13039975623">303-997-5623</a></li>
-          <li><strong>Hours</strong> Mon–Thu 11am–8pm, Fri–Sat 11am–9pm, Sun 11pm–7pm<!-- VERIFY: Sunday hours as published live — a close time before an open time isn't valid, likely meant 11am–7pm, needs a corrected time from the owner --></li>
-        </ul>
-        <div class="loc-info-ctas">
-          <a class="btn btn-outline-dark btn-sm" href="https://www.google.com/maps/dir/?api=1&destination=7562+S+University+Blvd+Unit+C,+Centennial,+CO+80122" target="_blank" rel="noreferrer">Get Directions ▸</a>
-          <a class="btn btn-outline-dark btn-sm" href="/order/denver/">Ordering from Denver instead? ▸</a>
+  <!-- Photo-led, not a map widget — the same split pattern already used for Good Vibes /
+       Jamaican Grill on the homepage, reused here instead of a generic embedded map. -->
+  <section class="content-split">
+    <div class="wrap split-grid reveal">
+      <div class="split-media" style="background-image:url('../../assets/reggae-pot-photo.jpg');"></div>
+      <div class="split-copy">
+        <span class="eyebrow" style="color:var(--green)">Visit or order ahead</span>
+        <h2>Dine in, or skip straight to eating</h2>
+        <p>Come in for the reggae music and the full spread, or order ahead and pick up when it's ready. No account needed to browse the menu, real prices shown before you check out.</p>
+        <div class="hero-ctas" style="margin-top:1.2em;">
+          <a class="btn btn-ember btn-sm" href="https://ezoo.app/reggaepotcentennial">Start Your Order ▸</a>
+          <a class="btn btn-outline-dark btn-sm" href="/menu/">View the Menu</a>
         </div>
-      </div>
-      <div class="loc-map">
-        <iframe src="https://www.google.com/maps?q=7562+S+University+Blvd+Unit+C,+Centennial,+CO+80122&output=embed" loading="lazy" title="Map to Reggae Pot Jamaican Grill, Centennial"></iframe>
       </div>
     </div>
   </section>
@@ -187,6 +201,24 @@
   <a class="centennial" href="/order/centennial/">Order: Centennial</a>
   <a class="denver" href="/order/denver/">Order: Denver</a>
 </nav>
+
+<script>
+  // Same scroll-reveal used on the homepage and menu page — this page uses the .reveal
+  // class on the hero-card/hero-quote/split section too, so it needs the same script.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.15});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
 
 </body>
 </html>
