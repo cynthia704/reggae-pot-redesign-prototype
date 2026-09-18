@@ -55,8 +55,14 @@
     transition:transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .btn:active{transform:translateY(1px);}
-  .btn-ember{background:var(--green); color:#fff;}
-  .btn-ember:hover{background:var(--green-hover); box-shadow:0 8px 22px -8px rgba(11,148,68,0.55);}
+  /* One consistent color for the primary Order Online button everywhere on the site —
+     previously gold only inside the hero (and anywhere reusing its CTA-row class) but
+     plain green elsewhere (header, Locations cards), which read as two different
+     "primary" colors depending on section. Per Brian's standing requirement across all
+     Magister redesigns: "Make the Order Online CTA prominent and use the same button
+     color throughout." */
+  .btn-ember{background:var(--gold); color:var(--green-deep);}
+  .btn-ember:hover{background:#fff; box-shadow:0 12px 32px -8px rgba(255,191,0,0.7);}
   .btn-outline{background:transparent; border-color:currentColor;}
   .btn-outline:hover{background:rgba(255,255,255,0.08);}
   .btn-outline-dark{background:transparent; border-color:var(--green); color:var(--green);}
@@ -149,15 +155,6 @@
   .hero-text .hero-benefits{justify-content:center;}
   .hero-benefits li{display:flex; align-items:center; gap:7px;}
   .hero-benefits li::before{content:"✓"; color:var(--gold); font-weight:700;}
-  /* Highlighted order button: gold instead of green so it actually pops against the
-     dark green hero, rather than a green button nearly disappearing into a green
-     backdrop. Scoped to the hero only — every other Order Online button sitewide
-     (header, locations, footer, final CTA) keeps the standard green treatment. */
-  .hero-ctas .btn-ember{
-    background:var(--gold); color:var(--green-deep);
-    box-shadow:0 10px 28px -8px rgba(255,191,0,0.55);
-  }
-  .hero-ctas .btn-ember:hover{background:#fff; box-shadow:0 12px 32px -8px rgba(255,191,0,0.7);}
   .hero-quote{
     padding:16px 18px; border-radius:var(--radius);
     background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14);
@@ -336,6 +333,12 @@
   .final-cta h2{color:var(--ink);}
   .final-cta p.lede{color:rgba(26,26,26,0.78); font-size:1.05rem;}
   .final-cta .btn-outline{border-color:rgba(26,26,26,0.55); color:var(--ink);}
+  /* Same gold button as everywhere else (per the site-wide consistent-CTA-color rule),
+     but this is the one section where the background is ALSO gold — a plain gold-on-gold
+     fill would vanish, so it gets a dark border here for definition. Background and text
+     color are identical to every other Order Online button on the site; only the border
+     changes, and only because this section's background genuinely requires it. */
+  .final-cta .btn-ember{border-color:rgba(26,26,26,0.4); box-shadow:0 8px 20px -10px rgba(26,26,26,0.35);}
 
   /* ---------- Footer ---------- */
   footer{background:var(--ink); color:rgba(250,246,236,0.82); padding-block:56px 28px; font-size:0.9rem;}

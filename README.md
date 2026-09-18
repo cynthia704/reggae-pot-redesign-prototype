@@ -326,6 +326,28 @@ Left em-dashes alone in two places that aren't visitor-facing: my own HTML comme
 
 **Verified:** ✅ ran a live DOM text-content check on both pages after the changes (`document.body.innerText.includes('—')`) — confirmed **zero** em-dashes in what a visitor actually sees, on both index.html and menu/index.html. Zero console errors, screenshot-confirmed the menu page renders cleanly.
 
+## Revised September 18, 2026 — applied Brian's standing design requirements
+
+Cynthia shared internal Slack/Basecamp context: Brian (CEO) has standing requirements that apply to **every** Magister restaurant redesign, not just the one they were originally written for. Audited this prototype against them directly.
+
+**Brian's standing requirements:**
+1. Always include a Home page with a visible Home nav link
+2. "Contact" not "Contact Us" — n/a here, this prototype has no Contact link at all currently
+3. No cursive fonts, especially in reviews — ✅ already compliant, verified: no cursive font-family anywhere, review quotes use italic Fraunces (a serif), not a script font
+4. **Order Online CTA prominent, and the same button color throughout**
+
+**What was actually wrong (#4):** the primary "Order Online" button was gold inside the hero and most content sections, but plain green in the header's Centennial button, the Locations cards, and the Final CTA section (which used an inline-style override) — three different treatments for what should read as one consistent action.
+
+**Fixed:**
+- Added an explicit **Home** link, first item in the nav.
+- Made gold the one consistent primary-button color sitewide (was previously gold only inside a scoped selector, green everywhere else by default).
+- Fixed the header: Centennial is now the solid gold button, Denver the outline one — matching the pattern used in every other section (previously reversed).
+- Fixed the Final CTA section: its button now uses the exact same gold fill and text color as every other Order Online button on the site. That section's background is also gold, so a plain gold-on-gold button would vanish — gave it a dark border there for definition, without changing the button's actual color.
+
+**Flagging, not changing without your say-so:** Brian's CRO notes (from the referenced Basecamp threads) also call out "No Wait" as an unsupported promise to avoid — this prototype's hero and Order Online benefit list both include "No wait." That exact phrase was something you explicitly asked me to add earlier this session, sourced from the original Aug 10 action plan, so I didn't touch it without checking with you first. Let me know if you want it softened (e.g. to "Order ahead") or left as is.
+
+**Verified:** ✅ confirmed via computed styles that all 13 primary Order Online buttons on the page now resolve to the exact same background color, zero console errors, screenshot-confirmed the header and the Final CTA section both render correctly with the fix.
+
 ## Not done yet
 
 - The other 6 pages (order/centennial, order/denver, about, catering, locations) — homepage and menu are the two pages built so far.
