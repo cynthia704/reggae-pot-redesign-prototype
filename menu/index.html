@@ -42,44 +42,87 @@
     border:1px solid rgba(255,255,255,0.16); font-size:0.85rem; max-width:64ch; color:rgba(250,246,236,0.85);
   }
 
-  .menu-layout{display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start; padding-block:48px;}
+  /* ---------- Fan Favorites: photo-forward opener before the text-row categories ---------- */
+  .menu-featured{padding-block:44px 8px;}
+  .menu-featured-label{
+    display:block; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase;
+    font-weight:700; color:var(--green); margin-bottom:14px;
+  }
+  .featured-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px;}
+  @media (max-width:920px){ .featured-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:600px){ .featured-grid{grid-template-columns:repeat(2,1fr);} }
+  .featured-card{
+    display:block; text-decoration:none; color:inherit; border-radius:var(--radius);
+    overflow:hidden; border:1px solid var(--line); background:#fff;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .featured-card:hover{transform:translateY(-3px); box-shadow:0 14px 28px -16px rgba(10,42,26,0.35);}
+  .featured-photo{aspect-ratio:1/1; background-size:cover; background-position:center;}
+  .featured-body{padding:10px 12px 12px;}
+  .featured-body h3{font-size:0.92rem; margin-bottom:4px; line-height:1.25;}
+  .featured-price{font-size:0.85rem; font-weight:600; color:var(--green); font-variant-numeric:tabular-nums;}
+
+  .menu-layout{display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start; padding-block:32px 48px;}
   @media (max-width:860px){ .menu-layout{grid-template-columns:1fr;} }
 
-  .jump-nav{position:sticky; top:86px; display:flex; flex-direction:column; gap:2px;}
+  /* Nav "chips" — a filled pill on hover/active instead of just a thin left border, so
+     this reads less like a plain link list and more like a real wayfinding control. */
+  .jump-nav{position:sticky; top:86px; display:flex; flex-direction:column; gap:3px;}
   .jump-nav a{
-    padding:9px 12px; border-radius:8px; text-decoration:none; color:var(--ink); font-size:0.88rem;
-    font-weight:500; opacity:0.72; border-left:2px solid transparent;
+    padding:9px 12px; border-radius:999px; text-decoration:none; color:var(--ink); font-size:0.88rem;
+    font-weight:500; opacity:0.72;
   }
   .jump-nav a:hover{opacity:1; background:var(--cream-deep);}
-  .jump-nav a.active{opacity:1; border-left-color:var(--green); color:var(--green); font-weight:600;}
+  .jump-nav a.active{opacity:1; background:var(--green); color:#fff; font-weight:600;}
   @media (max-width:860px){
     .jump-nav{
       position:sticky; top:66px; z-index:20; flex-direction:row; overflow-x:auto; gap:8px;
       background:var(--cream); padding-block:10px; margin-inline:-24px; padding-inline:24px;
       border-bottom:1px solid var(--line); -webkit-overflow-scrolling:touch;
     }
-    .jump-nav a{white-space:nowrap; border-left:none; border-bottom:2px solid transparent; border-radius:0; padding:6px 4px;}
-    .jump-nav a.active{border-bottom-color:var(--green);}
+    .jump-nav a{white-space:nowrap; border-radius:999px; padding:6px 14px;}
   }
 
-  .menu-cat{scroll-margin-top:150px; padding-bottom:40px; border-bottom:1px solid var(--line); margin-bottom:40px;}
-  .menu-cat:last-child{border-bottom:none;}
+  /* Each category is now its own bordered card instead of a plain text block separated
+     by a hairline — reads as a distinct, designed section instead of one continuous
+     spreadsheet running down the page. */
+  .menu-cat{
+    scroll-margin-top:150px; padding:28px 28px 8px; margin-bottom:28px;
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    border-top:4px solid var(--green);
+  }
   .menu-cat-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:6px;}
   .menu-cat-head h2{margin-bottom:0;}
   .menu-cat-count{font-size:0.8rem; color:var(--green); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;}
   .menu-cat-intro{max-width:64ch; opacity:0.75; margin-bottom:1.2em;}
-  .menu-cat-order{font-size:0.85rem; font-weight:600; color:var(--green); text-decoration:none; white-space:nowrap;}
-  .menu-cat-order:hover{text-decoration:underline;}
+  .menu-cat-order{
+    font-size:0.82rem; font-weight:700; color:var(--green); text-decoration:none; white-space:nowrap;
+    border:1.5px solid var(--green); border-radius:999px; padding:6px 14px;
+  }
+  .menu-cat-order:hover{background:var(--green); color:#fff;}
 
-  .menu-items{display:grid; grid-template-columns:1fr 1fr; gap:6px 40px;}
-  @media (max-width:680px){ .menu-items{grid-template-columns:1fr;} }
+  /* Item rows: zebra striping + a price pill instead of plain dashed-line text rows,
+     so a 12-category, 80-item list doesn't read as one flat spreadsheet. */
+  .menu-items{display:grid; grid-template-columns:1fr 1fr; gap:0 32px;}
   .menu-item{
-    display:flex; justify-content:space-between; gap:16px; padding-block:12px;
-    border-bottom:1px dashed var(--line);
+    display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+    padding:12px 14px; border-radius:8px;
+  }
+  /* Grid fills left-to-right per row, so plain nth-child(odd) would only ever stripe the
+     left column. This pairs items 1&2, skips 3&4, pairs 5&6... which stripes by row
+     instead, matching how the grid actually lays the two columns out. */
+  .menu-item:nth-child(4n+1), .menu-item:nth-child(4n+2){background:var(--cream);}
+  @media (max-width:680px){
+    .menu-items{grid-template-columns:1fr;}
+    .menu-item:nth-child(4n+1), .menu-item:nth-child(4n+2){background:none;}
+    .menu-item:nth-child(odd){background:var(--cream);}
   }
   .menu-item-name{font-weight:600; font-size:0.98rem;}
   .menu-item-desc{font-size:0.85rem; opacity:0.7; margin-top:2px; max-width:38ch;}
-  .menu-item-price{font-weight:600; color:var(--green); white-space:nowrap; font-variant-numeric:tabular-nums;}
+  .menu-item-price{
+    font-weight:700; color:var(--green-deep); white-space:nowrap; font-variant-numeric:tabular-nums;
+    background:var(--gold); border-radius:999px; padding:3px 11px; font-size:0.85rem; flex:none;
+  }
 
   .menu-callout{
     background:var(--cream-deep); border:1px dashed rgba(11,148,68,0.4); border-radius:var(--radius);
@@ -130,6 +173,40 @@
         <a class="btn btn-outline" href="/order/denver/">Order Online: Denver</a>
       </div>
       <p class="menu-note">Prices shown are Centennial's. Denver's menu is close but can vary slightly. Order from your own location's link above to see exactly what's available near you.</p>
+    </div>
+  </section>
+
+  <!-- FAN FAVORITES — real photos on the 5 dishes we actually have real photos of (the
+       same shots used on the homepage), matched to their exact real menu items and
+       prices below. This is the direct fix for "it's just a text list" — every other
+       item still doesn't have a real photo, so this can't extend to the whole menu
+       without inventing images, but it gives the page a photo-forward opening instead
+       of diving straight into rows of text. -->
+  <section class="menu-featured">
+    <div class="wrap">
+      <span class="menu-featured-label">Fan Favorites</span>
+      <div class="featured-grid">
+        <a class="featured-card" href="https://ezoo.app/reggaepotcentennial#cat-WWQKBZJGEMBQ8">
+          <div class="featured-photo" style="background-image:url('../assets/oxtail.png');"></div>
+          <div class="featured-body"><h3>Oxtail</h3><span class="featured-price">$25.00</span></div>
+        </a>
+        <a class="featured-card" href="https://ezoo.app/reggaepotcentennial#cat-WWQKBZJGEMBQ8">
+          <div class="featured-photo" style="background-image:url('../assets/jerk-ribs.jpg');"></div>
+          <div class="featured-body"><h3>Jerk BBQ Ribs</h3><span class="featured-price">$22.50</span></div>
+        </a>
+        <a class="featured-card" href="https://ezoo.app/reggaepotcentennial#cat-WWQKBZJGEMBQ8">
+          <div class="featured-photo" style="background-image:url('../assets/jerk-chicken.png');"></div>
+          <div class="featured-body"><h3>Jerk Chicken</h3><span class="featured-price">$21.00</span></div>
+        </a>
+        <a class="featured-card" href="https://ezoo.app/reggaepotcentennial#cat-WWQKBZJGEMBQ8">
+          <div class="featured-photo" style="background-image:url('../assets/ackee-saltfish.jpg');"></div>
+          <div class="featured-body"><h3>Ackee &amp; Salt Fish</h3><span class="featured-price">$24.00</span></div>
+        </a>
+        <a class="featured-card" href="https://ezoo.app/reggaepotcentennial#cat-KR3TD5Z9VG74J">
+          <div class="featured-photo" style="background-image:url('../assets/jerk-wings.jpg');"></div>
+          <div class="featured-body"><h3>Jerk Wings Starter</h3><span class="featured-price">$8.99</span></div>
+        </a>
+      </div>
     </div>
   </section>
 

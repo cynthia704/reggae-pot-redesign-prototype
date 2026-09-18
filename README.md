@@ -370,6 +370,19 @@ Fixed both. The heading-period check from the previous round did already cover t
 
 **Verified:** ✅ all 3 primary buttons on the menu page confirmed resolving to the same gold color, Home link confirmed present, zero period headings, zero em-dashes, zero console errors, screenshot-confirmed the header and hero render correctly.
 
+## Revised September 18, 2026 — menu page layout redesigned
+
+Cynthia said the menu page still read too close to a typical bare online-ordering catalog — confirmed she meant the layout/structure specifically, not the colors (real brand green/gold/red stays). The old version was 81 items across 12 categories, every single one the same plain two-column flex row with a dashed underline — no photos, no visual hierarchy, functionally a spreadsheet.
+
+**What changed:**
+- **New "Fan Favorites" strip** right after the hero: real photos on the 5 dishes we actually have real photos of (the same shots already used on the homepage — Oxtail, Jerk BBQ Ribs, Jerk Chicken, Ackee & Salt Fish, Jerk Wings Starter), matched to their exact real prices and menu items. This can't extend to the whole 81-item menu without inventing photos we don't have, but it gives the page a photo-forward opening instead of diving straight into text.
+- **Each category is now its own card** — white background, bordered, a green top accent bar — instead of a plain text block separated by a thin line. Reads as 12 distinct designed sections instead of one continuous scroll of rows.
+- **Category order links are now a bordered pill button**, not a plain text link.
+- **Item rows now zebra-stripe by row** (alternating a light cream tint) instead of a flat list, and **prices sit in a gold pill** instead of plain green text — small changes, but they break up 81 identical-looking rows into something with actual rhythm.
+- **Jump-nav redesigned as filled pill chips** (solid green background on hover/active) instead of a thin left-border indicator.
+
+**Verified:** ✅ confirmed via computed styles: all 5 Fan Favorite cards load the correct real photo, all 12 categories carry the new card styling, 47 of 81 item rows are striped (confirmed the row-pairing math is correct, not just striping the left column), price pills and nav chips render with the intended pill shape and gold/green colors. Zero console errors, zero em-dashes. ❓ **Could not get a screenshot past the hero this round** — same recurring Browser-tool flakiness as most of this session — please open the page yourself and scroll through, since this is a real layout change across the whole page, not just a color tweak I can fully vouch for from computed styles alone.
+
 ## Not done yet
 
 - The other 6 pages (order/centennial, order/denver, about, catering, locations) — homepage and menu are the two pages built so far.
