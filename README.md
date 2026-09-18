@@ -359,6 +359,17 @@ Cynthia flagged that item #1 from Beth's Slack list of "obviously-AI-design" tel
 
 **Verified:** ✅ searched every `<h1>`/`<h2>` on both `index.html` and `menu/index.html` for a literal period — zero remain. Confirmed the resulting heading text directly via `textContent` (not just the source), zero console errors, screenshot-confirmed the hero heading renders correctly.
 
+## Revised September 18, 2026 — menu page hadn't gotten the same fixes yet
+
+The last two rounds (Brian's standing requirements, periods in headings) were checked against the homepage but not `menu/index.html`, even though it shares the same header/footer/Final CTA structure and the same site.css. Went through it directly and found the same two bugs, unfixed:
+
+- No Home nav link, and the header's Centennial/Denver buttons were still in the reversed order.
+- The Final CTA section (reused from the homepage) still had the old inline-style green override instead of the shared gold `.btn-ember` class — same bug as the homepage's Final CTA, just never touched here.
+
+Fixed both. The heading-period check from the previous round did already cover this page (it uses the same "Skip the line, ready when you get here" heading), so that part was already clean here — verified again to be sure.
+
+**Verified:** ✅ all 3 primary buttons on the menu page confirmed resolving to the same gold color, Home link confirmed present, zero period headings, zero em-dashes, zero console errors, screenshot-confirmed the header and hero render correctly.
+
 ## Not done yet
 
 - The other 6 pages (order/centennial, order/denver, about, catering, locations) — homepage and menu are the two pages built so far.
