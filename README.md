@@ -383,9 +383,24 @@ Cynthia said the menu page still read too close to a typical bare online-orderin
 
 **Verified:** ✅ confirmed via computed styles: all 5 Fan Favorite cards load the correct real photo, all 12 categories carry the new card styling, 47 of 81 item rows are striped (confirmed the row-pairing math is correct, not just striping the left column), price pills and nav chips render with the intended pill shape and gold/green colors. Zero console errors, zero em-dashes. ❓ **Could not get a screenshot past the hero this round** — same recurring Browser-tool flakiness as most of this session — please open the page yourself and scroll through, since this is a real layout change across the whole page, not just a color tweak I can fully vouch for from computed styles alone.
 
+## Revised September 18, 2026 — built the Centennial and Denver order pages
+
+Cynthia said to proceed to the next page. Checked the live site's actual `/order/centennial/` and `/order/denver/` pages directly (Sep 18, 2026) before building anything — both are the exact same "bare embed, zero content" pattern the Sep 3 audit flagged for the menu page: 69 characters of visible text on the Centennial one (just a copyright line), same on Denver, no H1, no address, no hours, just an embedded ezoo iframe with nothing around it.
+
+**Built `order/centennial/index.html` and `order/denver/index.html`** — real content pages, matching Design A's visual system, each with:
+- A photo hero with the real address, phone, and hours up top, not buried
+- A "Start Your Order" button linking directly to the real ezoo storefront for that location (confirmed both slugs directly from the live embeds: `ezoo.app/reggaepotcentennial` and `ezoo.app/reggaepotdenver` — Denver's isn't a guessable pattern from Centennial's URL, verified it by inspecting the live iframe source)
+- A real Google Maps embed of the real address (not a placeholder graphic)
+- A clickable phone number, a "Get Directions" link, and a cross-link to the other location's page
+- The same header, footer, and Order Online closing section as every other page in this prototype
+
+Ordering itself stays on ezoo, same approach as the menu page's category links — the fix is real content around a real "start ordering" path, not rebuilding a cart.
+
+**Verified:** ✅ both pages confirmed live-loading (HTTP 200), zero console errors on both, zero em-dashes, zero period headings, all 3 primary buttons on each page confirmed the same gold color, both map embeds confirmed pointing at the correct real address, both "Start Your Order" links confirmed pointing at the correct real ezoo storefront (not a copy-paste of the other location's), screenshot-confirmed both heroes render correctly.
+
 ## Not done yet
 
-- The other 6 pages (order/centennial, order/denver, about, catering, locations) — homepage and menu are the two pages built so far.
+- The remaining pages (about, catering, a general locations index) — homepage, menu, and both order pages (Centennial + Denver) are built so far.
 - Nothing has been connected to WordPress. Per Beth's Sep 14 comment, hosting is portal.ivywildmedia.com and **no new WP backend users** — so implementation needs to go through whoever already has that access (David/Richard/Durga's team), not through a new login.
 - Confirmed Sunday hours for Centennial.
 - Named, platform-attributed review quotes.

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Online | Denver | Reggae Pot Jamaican Grill</title>
+<meta name="description" content="Order Jamaican food for pickup from Reggae Pot's Denver, CO location. 2243 S Monaco St Pkwy #104. Real hours, real address, real menu.">
+
+<!--
+  REDESIGN PROTOTYPE — Reggae Pot Jamaican Grill, Denver order page
+  Built Sep 18, 2026, mirroring order/centennial/. Same fix: the live site's actual
+  /order/denver/ page (confirmed live, Sep 18, 2026, reached via monaco.reggaepotjamaicangrill.com
+  which redirects there) is also a bare ezoo iframe with zero surrounding content.
+
+  Denver's real ezoo storefront slug is "reggaepotdenver" (confirmed by inspecting the live
+  page's embedded iframe directly, not guessed from the Centennial URL pattern).
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+  .loc-hero{
+    position:relative; overflow:hidden; color:#fff;
+    background:url("../../assets/reggae-pot-photo.jpg") center/cover no-repeat, var(--green-deep);
+    padding-block:clamp(56px,9vw,88px);
+  }
+  .loc-hero::before{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,42,26,0.88) 0%, rgba(10,42,26,0.7) 45%, rgba(10,42,26,0.92) 100%);
+  }
+  .loc-hero .wrap{position:relative; z-index:1;}
+  .loc-hero .eyebrow{color:var(--gold);}
+  .loc-hero h1{color:#fff; font-size:clamp(2rem,4.5vw,3rem); max-width:18ch;}
+  .loc-hero p.lede{max-width:56ch; color:rgba(250,246,236,0.9); font-size:1.08rem;}
+  .loc-quickfacts{display:flex; flex-wrap:wrap; gap:20px 36px; margin:1.4em 0 1.8em; font-size:0.94rem;}
+  .loc-quickfacts strong{color:var(--gold); display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:2px;}
+
+  .loc-main{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; padding-block:64px;}
+  @media (max-width:880px){ .loc-main{grid-template-columns:1fr; gap:36px;} }
+  .loc-info h2{margin-bottom:0.5em;}
+  .loc-info p{opacity:0.85;}
+  .loc-facts-full{list-style:none; margin:1.4em 0; padding:0; display:grid; gap:14px; font-size:0.98rem;}
+  .loc-facts-full strong{display:block; color:var(--green); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px;}
+  .loc-info-ctas{display:flex; flex-wrap:wrap; gap:12px; margin-top:1.6em;}
+  .loc-map{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); aspect-ratio:4/3;}
+  .loc-map iframe{width:100%; height:100%; border:0;}
+
+  .order-cta{background:var(--green-deep); color:var(--cream); text-align:center;}
+  .order-cta .wrap{max-width:640px;}
+  .order-cta h2{color:#fff;}
+  .order-cta .eyebrow{color:var(--gold);}
+  .order-cta p{color:rgba(250,246,236,0.85);}
+  .order-cta .cta-note{font-size:0.85rem; opacity:0.75; margin-top:1em;}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="/" class="wordmark">
+      <img class="mark" src="../../assets/icon.png" alt="" width="186" height="119">
+      <img class="logotype" src="../../assets/logo-txt.png" alt="Reggae Pot" width="473" height="66">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/menu/">Menu</a></li>
+      <li><a href="/#locations">Locations</a></li>
+      <li><a href="https://catering.reggaepotjamaicangrill.com/">Catering</a></li>
+      <li><a href="/#why">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-ember btn-sm" href="/order/centennial/">Order: Centennial</a>
+      <a class="btn btn-outline-dark btn-sm" href="/order/denver/">Order: Denver</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="loc-hero">
+    <div class="wrap">
+      <span class="eyebrow">Order Online · Denver</span>
+      <h1>Ready when you are, Denver</h1>
+      <p class="lede">Order ahead from our Denver location and skip the wait. Same real Jamaican food, cooked the way Tamara Nisbeth learned in Montego Bay.</p>
+      <div class="loc-quickfacts">
+        <div><strong>Address</strong>2243 S Monaco St Pkwy #104, Denver, CO 80222</div>
+        <div><strong>Phone</strong><a href="tel:+17204102956">720-410-2956</a></div>
+        <div><strong>Hours</strong>Mon–Thu 11am–8pm · Fri–Sat 11am–9pm · Closed Sun</div>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-ember" href="https://ezoo.app/reggaepotdenver">Start Your Order ▸</a>
+        <a class="btn btn-outline" href="/menu/">View the Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="loc-main-section">
+    <div class="wrap loc-main">
+      <div class="loc-info">
+        <span class="eyebrow" style="color:var(--red)">Visit or order ahead</span>
+        <h2>Denver, Colorado</h2>
+        <p>Dine in for the reggae music and the full spread, or order ahead on ezoo and pick up when it's ready. No account needed to browse the menu, real prices shown before you check out.</p>
+        <ul class="loc-facts-full">
+          <li><strong>Address</strong> 2243 S Monaco St Pkwy #104, Denver, CO 80222</li>
+          <li><strong>Phone</strong> <a href="tel:+17204102956">720-410-2956</a></li>
+          <li><strong>Hours</strong> Mon–Thu 11am–8pm, Fri–Sat 11am–9pm, Closed Sunday</li>
+        </ul>
+        <div class="loc-info-ctas">
+          <a class="btn btn-outline-dark btn-sm" href="https://www.google.com/maps/dir/?api=1&destination=2243+S+Monaco+St+Pkwy+%23104,+Denver,+CO+80222" target="_blank" rel="noreferrer">Get Directions ▸</a>
+          <a class="btn btn-outline-dark btn-sm" href="/order/centennial/">Ordering from Centennial instead? ▸</a>
+        </div>
+      </div>
+      <div class="loc-map">
+        <iframe src="https://www.google.com/maps?q=2243+S+Monaco+St+Pkwy+%23104,+Denver,+CO+80222&output=embed" loading="lazy" title="Map to Reggae Pot Jamaican Grill, Denver"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="order-cta">
+    <div class="wrap">
+      <span class="eyebrow">Fast &amp; Easy</span>
+      <h2>Order Online</h2>
+      <p>Order your favorites ahead of time right from your phone. Just a few clicks and you can enjoy Reggae Pot Jamaican Grill to go.</p>
+      <div class="cta-row" style="justify-content:center; margin-top:1.4em;">
+        <a class="btn btn-ember" href="https://ezoo.app/reggaepotdenver">Start Your Order ▸</a>
+      </div>
+      <p class="cta-note">Ordering from Centennial? <a href="/order/centennial/" style="color:var(--gold);">Go to the Centennial order page</a>.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="foot-logo">
+        <img class="mark" src="../../assets/icon.png" alt="" width="186" height="119">
+        <img class="logotype" src="../../assets/logo-txt.png" alt="Reggae Pot" width="473" height="66">
+      </div>
+      <p style="max-width:32ch; opacity:0.8;">Authentic Jamaican food in south Denver metro. Owned and cooked by Tamara Nisbeth of Montego Bay.</p>
+    </div>
+    <div>
+      <h4>Centennial</h4>
+      <ul>
+        <li>7562 S University Blvd Unit C</li>
+        <li><a href="tel:+13039975623">303-997-5623</a></li>
+        <li><a href="/order/centennial/">Order Online ▸</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Denver</h4>
+      <ul>
+        <li>2243 S Monaco St Pkwy #104</li>
+        <li><a href="tel:+17204102956">720-410-2956</a></li>
+        <li><a href="/order/denver/">Order Online ▸</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>More</h4>
+      <ul>
+        <li><a href="/menu/">Full Menu</a></li>
+        <li><a href="https://catering.reggaepotjamaicangrill.com/">Catering</a></li>
+        <li><a href="/#why">About Tamara</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Reggae Pot Jamaican Grill.</span>
+    <span>Redesign prototype. See README.md in this folder before this ships.</span>
+  </div>
+</footer>
+
+<nav class="mobile-order-bar" aria-label="Quick order">
+  <a class="centennial" href="/order/centennial/">Order: Centennial</a>
+  <a class="denver" href="/order/denver/">Order: Denver</a>
+</nav>
+
+</body>
+</html>
