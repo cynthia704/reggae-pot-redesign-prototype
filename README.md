@@ -348,6 +348,17 @@ Cynthia shared internal Slack/Basecamp context: Brian (CEO) has standing require
 
 **Verified:** ✅ confirmed via computed styles that all 13 primary Order Online buttons on the page now resolve to the exact same background color, zero console errors, screenshot-confirmed the header and the Final CTA section both render correctly with the fix.
 
+## Revised September 18, 2026 — periods in headings
+
+Cynthia flagged that item #1 from Beth's Slack list of "obviously-AI-design" tells (periods in headers) was still present — the previous round only covered Brian's 4-point standing list, not this earlier, separate feedback from the same thread. Went through every `<h1>`/`<h2>` on both pages and removed every period:
+
+- "Real Jamaican food, cooked like home**.**" → "Real Jamaican food, cooked like home"
+- "South Denver metro**.** Worth the drive**.**" → "South Denver metro, worth the drive"
+- "Tamara Nisbeth learned to cook in Montego Bay**.** She cooks the same way here**.**" → "Tamara Nisbeth learned to cook in Montego Bay, and cooks the same way here"
+- "Skip the line**.** Ready when you get here**.**" → "Skip the line, ready when you get here" (this one also appears on the menu page — fixed there too)
+
+**Verified:** ✅ searched every `<h1>`/`<h2>` on both `index.html` and `menu/index.html` for a literal period — zero remain. Confirmed the resulting heading text directly via `textContent` (not just the source), zero console errors, screenshot-confirmed the hero heading renders correctly.
+
 ## Not done yet
 
 - The other 6 pages (order/centennial, order/denver, about, catering, locations) — homepage and menu are the two pages built so far.
